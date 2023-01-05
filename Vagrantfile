@@ -1,8 +1,6 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "almalinux/8"
     config.vm.provision "shell", inline: "sudo dnf -y update"
-    config.vm.provision "shell", inline: "sudo dnf -y install ansible"
-    config.vm.provision "shell", inline: "sudo dnf -y install ansible-core"
 
     # Prepare for virtualbox guest additions
     config.vm.provision "shell", inline: "sudo dnf -y install gcc make perl kernel-devel kernel-headers bzip2"
@@ -13,8 +11,9 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "rpm -qi epel-release"
     config.vm.provision "shell", inline: "sudo dnf -y groupinstall 'Xfce' 'base-x'"
     config.vm.provision "shell", inline: "sudo systemctl set-default graphical"
+    config.vm.provision "shell", inline: "sudo shutdown -r now"
     config.vm.provider :virtualbox do |vb|
-        vb.name = "devenv"
+        vb.name = "AlmaLinux"                # AlmaLinux is also the shared folder name
         vb.gui = true
         vb.customize [
             "modifyvm", :id,
